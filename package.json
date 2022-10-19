@@ -19,12 +19,12 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jquery": "^3.6.1",
+    "mongoose": "^6.6.5",
     "morgan": "~1.9.1",
     "popper.js": "^1.16.1"
   },
   "description": "assignment1",
   "main": "index.js",
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AKAT119/express-portfolio.git"
