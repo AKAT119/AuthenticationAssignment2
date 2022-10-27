@@ -39,6 +39,12 @@
             <% } %>
             <a class="nav-link text-warning" href="/projects"><i class="fa-solid fa-laptop-code"></i> Projects</a>
           </li>
+          <% if (title =="Books"){%>
+            <li class="nav-item active">
+            <%} else {%><li class="nav-item">
+            <% } %>
+            <a class="nav-link text-warning" href="/book-list"><i class="fa-solid fa-book"></i> Books</a>
+          </li>
         </ul>
     </div>
   </nav>

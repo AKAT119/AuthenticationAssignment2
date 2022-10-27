@@ -1,6 +1,6 @@
-<%- include partials/header.ejs %>
+<%- include ../partials/header.ejs %>
 
-<%- include partials/main_nav.ejs %>
+<%- include ../partials/main_nav.ejs %>
   
 
   <!-- Main Content -->
@@ -9,6 +9,8 @@
         <div class="offset-md-1 col-md-10">
             <h1><%= title %></h1>
             <br>
+            <a href="/book-list/add" class="btn btn-primary" role="button">
+            <i class="fas fa-plus-circle"></i> Add a Book</a>
             <table class="table table-bordered table-striped table-hover">
                 <!-- Header Row-->
                 <tr class="d-flex">
@@ -35,9 +37,9 @@
     </div>
   </main>
   
-<%- include partials/bottom_nav.ejs %>  
+<%- include ../partials/bottom_nav.ejs %>  
 
-<%- include partials/footer.ejs %>
+<%- include ../partials/footer.ejs %>
   
 
 
