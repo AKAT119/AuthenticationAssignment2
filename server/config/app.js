@@ -64,7 +64,7 @@ let userModel = require('../models/user');
 let User = userModel.User;
 
 // implement a User Authentication Strategy
-//passport.use(User.createStrategy());
+passport.use(User.createStrategy());
 
  
 // serialize and deserialize the User info

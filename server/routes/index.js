@@ -1,39 +1,26 @@
-var express = require('express');
-var router = express.Router();
-production=false;
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'main'});
-});
+let express = require('express');
+let router = express.Router();
+
+let indexController = require('../controllers/index');
 
 /* GET home page. */
-router.get('/home', function(req, res, next) {
-  res.render('index', { title: 'Home'});
-});
+router.get('/', indexController.displayHomePage);
 
-/* GET About page. */
-router.get('/about', function(req, res, next) {
-  res.render('index', { title: 'About'});
-});
+/* GET home page. */
+router.get('/home', indexController.displayHomePage);
 
-/* GET Projects page. */
-router.get('/projects', function(req, res, next) {
-  res.render('index', { title: 'Projects'});
-});
+/* GET About Us page. */
+router.get('/about', indexController.displayAboutPage);
 
-/* GET Contact page. */
-router.get('/contact', function(req, res, next) {
-  res.render('index', { title: 'Contact'});
-});
+/* GET Products page. */
+router.get('/products', indexController.displayProductsPage);
 
 /* GET Services page. */
-router.get('/services', function(req, res, next) {
-  res.render('index', { title: 'Services'});
-});
-/* GET books  page. */
-router.get('/services', function(req, res, next) {
-  res.render('index', { title: 'Books'});
-});
+router.get('/services', indexController.displayServicesPage);
+
+/* GET Contact Us page. */
+router.get('/contact', indexController.displayContactPage);
+
 /* GET Route for displaying the Login page */
 router.get('/login', indexController.displayLoginPage);
 
@@ -48,8 +35,5 @@ router.post('/register', indexController.processRegisterPage);
 
 /* GET to perform UserLogout */
 router.get('/logout', indexController.performLogout);
-
-
-
 
 module.exports = router;
