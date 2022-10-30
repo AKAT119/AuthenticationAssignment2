@@ -1,29 +1,34 @@
-//installed all 3rd party packages
+// installed 3rd party packages
 let createError = require('http-errors');
 let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
+let cors = require('cors');
 
 // modules for authentication
 let session = require('express-session');
 let passport = require('passport');
 
+let passportJWT = require('passport-jwt');
+let JWTStrategy = passportJWT.Strategy;
+let ExtractJWT = passportJWT.ExtractJwt;
+
 let passportLocal = require('passport-local');
 let localStrategy = passportLocal.Strategy;
 let flash = require('connect-flash');
 
-
-//database setup
+// database setup
 let mongoose = require('mongoose');
 let DB = require('./db');
-//point mongoose to the DB URI
-mongoose.connect(DB.URI,{useNewUrlParser:true, useUnifiedTopology:true});
-let mongoDB = mongoose.connection;
-mongoDB.on('error', console.error.bind(console,'Connection Error:'));
-mongoDB.once('open', ()=>{
-  console.log('Connected to mongoDB...');
 
+// point mongoose to the DB URI
+mongoose.connect(DB.URI, {useNewUrlParser: true, useUnifiedTopology: true});
+
+let mongoDB = mongoose.connection;
+mongoDB.on('error', console.error.bind(console, 'Connection Error:'));
+mongoDB.once('open', ()=>{
+  console.log('Connected to MongoDB...');
 });
 
 let indexRouter = require('../routes/index');
@@ -34,7 +39,7 @@ let app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, '../views'));
-app.set('view engine', 'ejs');  //express -e
+app.set('view engine', 'ejs'); // express  -e
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -66,12 +71,27 @@ let User = userModel.User;
 // implement a User Authentication Strategy
 passport.use(User.createStrategy());
 
- 
 // serialize and deserialize the User info
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+let jwtOptions = {};
+jwtOptions.jwtFromRequest = ExtractJWT.fromAuthHeaderAsBearerToken();
+jwtOptions.secretOrKey = DB.Secret;
 
+let strategy = new JWTStrategy(jwtOptions, (jwt_payload, done) => {
+  User.findById(jwt_payload.id)
+    .then(user => {
+      return done(null, user);
+    })
+    .catch(err => {
+      return done(err, false);
+    });
+});
+
+passport.use(strategy);
+
+// routing
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/book-list', booksRouter);
@@ -89,7 +109,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error', { title: 'Error'});
 });
 
 module.exports = app;

@@ -1,8 +1,10 @@
 let express = require('express');
 let router = express.Router();
 let mongoose = require('mongoose');
-let passport = require('passport');
 
+let jwt = require('jsonwebtoken');
+
+let passport = require('passport');
 
 let bookController = require('../controllers/book');
 
@@ -24,7 +26,7 @@ router.get('/', bookController.displayBookList);
 router.get('/add', requireAuth, bookController.displayAddPage);
 
 /* POST Route for processing the Add page - CREATE Operation */
-router.post('/add', requireAuth ,bookController.processAddPage);
+router.post('/add', requireAuth, bookController.processAddPage);
 
 /* GET Route for displaying the Edit page - UPDATE Operation */
 router.get('/edit/:id', requireAuth, bookController.displayEditPage);
