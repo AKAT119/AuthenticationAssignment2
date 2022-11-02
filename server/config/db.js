@@ -1,7 +1,7 @@
 const username = "Azinnash ";
     const password = "Xv3lbyrqdu69CUkL";
     const cluster = "Cluster0";
-    const dbname = "contactBussiness";
+    const dbname = "book_store";
 module.exports = 
 {
     
